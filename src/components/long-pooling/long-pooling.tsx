@@ -10,13 +10,9 @@ export const LongPooling = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [value, setValue] = useState("");
 
-  useEffect(() => {
-    subscribe();
-  }, []);
-
   const subscribe = async () => {
     try {
-      const { data } = await axios.get("http://localhost:5000/get-messages");
+      const { data } = await axios.get("http://localhost:5000/get-message");
       setMessages((prev) => [data, ...prev]);
       await subscribe();
     } catch (e) {
@@ -27,11 +23,15 @@ export const LongPooling = () => {
   };
 
   const sendMessage = async () => {
-    await axios.post("http://localhost:5000/new-messages", {
+    await axios.post("http://localhost:5000/new-message", {
       message: value,
       id: Date.now(),
     });
   };
+
+  useEffect(() => {
+    subscribe();
+  }, [subscribe]);
 
   return (
     <div>
@@ -41,7 +41,14 @@ export const LongPooling = () => {
           onChange={(e) => setValue(e.target.value)}
           type="text"
         />
-        <button onClick={sendMessage}>Отправить</button>
+        <button
+          onClick={() => {
+            sendMessage();
+            setValue("");
+          }}
+        >
+          Отправить
+        </button>
       </div>
 
       <div className="messages">
