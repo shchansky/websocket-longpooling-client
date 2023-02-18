@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
+type Message = {
+  id: string | number;
+  message: string;
+};
+
 export const LongPooling = () => {
-  const [messages, setMessages] = useState<string[]>([]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [value, setValue] = useState("");
 
   useEffect(() => {
@@ -37,6 +42,14 @@ export const LongPooling = () => {
           type="text"
         />
         <button onClick={sendMessage}>Отправить</button>
+      </div>
+
+      <div className="messages">
+        {messages.map((mess) => (
+          <div className="message" key={mess.id}>
+            {mess.message}
+          </div>
+        ))}
       </div>
     </div>
   );
