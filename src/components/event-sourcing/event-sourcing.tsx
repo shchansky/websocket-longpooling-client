@@ -6,7 +6,7 @@ type Message = {
   message: string;
 };
 
-export const LongPooling = () => {
+export const EventSourcing = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [value, setValue] = useState("");
 

@@ -6,6 +6,8 @@ function App() {
   return (
     <div className="App">
       <Components.LongPooling />
+      <hr />
+      <Components.EventSourcing/>
     </div>
   );
 }
